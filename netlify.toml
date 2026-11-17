@@ -1,0 +1,10 @@
+# Static site: no build step, publish the repo root.
+[build]
+  publish = "."
+
+# PREVIEW ONLY: keeps this preview out of Google so it doesn't compete with
+# dublinfamilychiropractic.com. Delete this block when the site goes live on the real domain.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
