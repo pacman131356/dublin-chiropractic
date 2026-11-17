@@ -1,72 +1,77 @@
 // Dublin Family Chiropractic — interactions
 (() => {
   const header = document.querySelector('.header');
-  const nav = document.getElementById('nav');
-  const toggle = document.querySelector('.nav-toggle');
-
-  // ---- Collapsing nav: folds into the circular logo badge on scroll ----
-  const bar = header.querySelector('.header__bar');
   const brand = header.querySelector('.brand');
   const icon = header.querySelector('.brand__icon');
+  const toggle = header.querySelector('.nav-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  const foldAway = header.querySelectorAll('.header__nav, .nav-toggle');
   const brandLabel = brand.getAttribute('aria-label');
-  const COLLAPSE_AT = 260;   // px scrolled before folding up
-  const TOP_ZONE = 140;      // always unfolded near the top
-  const REFOLD_AFTER = 220;  // px of scrolling after a manual open before folding again
-  let collapsed = false;
-  let openedAt = null;       // scroll position where the user re-opened the bar
 
-  const placeOrb = () => {
-    const b = bar.getBoundingClientRect();
-    const i = icon.getBoundingClientRect();
-    bar.style.setProperty('--cx', `${i.left - b.left + i.width / 2}px`);
-    bar.style.setProperty('--cy', `${i.top - b.top + i.height / 2}px`);
+  // ---- Folding header ----
+  // Hysteresis: fold past FOLD_AT, unfold only back above UNFOLD_AT, so it
+  // can never flicker when you hover around a single threshold.
+  const FOLD_AT = 220;
+  const UNFOLD_AT = 90;
+  const REFOLD_AFTER = 240;  // px of scrolling after a manual open before refolding
+  let collapsed = false;
+  let openedAt = null;
+  let ticking = false;
+
+  // distance to slide the icon so it sits dead-center in the circle
+  const measure = () => {
+    const pill = header.querySelector('.header__pill').getBoundingClientRect();
+    const b = brand.getBoundingClientRect();        // brand itself is never transformed
+    const iconCenter = b.left + icon.offsetLeft + icon.offsetWidth / 2;
+    header.style.setProperty('--icon-shift', `${(pill.left + pill.width / 2) - iconCenter}px`);
   };
 
   const setCollapsed = (state) => {
     if (state === collapsed) return;
     collapsed = state;
     header.classList.toggle('is-collapsed', state);
-    // keep hidden links out of the tab order / screen readers while folded
-    nav.toggleAttribute('inert', state);
-    toggle.toggleAttribute('inert', state);
-    brand.setAttribute('aria-label', state ? 'Open navigation menu' : brandLabel);
-    brand.setAttribute('aria-expanded', String(!state));
+    foldAway.forEach((el) => el.toggleAttribute('inert', state));
+    brand.setAttribute('aria-label', state ? 'Open navigation' : brandLabel);
   };
 
-  const onScroll = () => {
+  const update = () => {
+    ticking = false;
+    if (header.classList.contains('menu-open')) return;
     const y = window.scrollY;
-    header.classList.toggle('scrolled', y > 10);
-    if (nav.classList.contains('open')) return;       // never fold while the mobile menu is open
-    if (y < TOP_ZONE) { openedAt = null; setCollapsed(false); return; }
+    if (y < UNFOLD_AT) { openedAt = null; setCollapsed(false); return; }
     if (openedAt !== null) {
       if (Math.abs(y - openedAt) > REFOLD_AFTER) { openedAt = null; setCollapsed(true); }
       return;
     }
-    if (y > COLLAPSE_AT) setCollapsed(true);
+    if (y > FOLD_AT) setCollapsed(true);
   };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
 
   brand.addEventListener('click', (e) => {
-    if (!collapsed) return;                            // normal "home" link when unfolded
+    if (!collapsed) return;           // acts as the normal "home" link when unfolded
     e.preventDefault();
     openedAt = window.scrollY;
     setCollapsed(false);
   });
 
-  placeOrb();
-  onScroll();
+  measure();
+  update();
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', placeOrb);
-  document.fonts && document.fonts.ready.then(placeOrb);
+  window.addEventListener('resize', measure);
+  if (document.fonts) document.fonts.ready.then(measure);
 
-  // Mobile menu
+  // ---- Mobile menu ----
   const setMenu = (open) => {
-    nav.classList.toggle('open', open);
+    header.classList.toggle('menu-open', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   };
-  toggle.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
-  nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  toggle.addEventListener('click', () => setMenu(!header.classList.contains('menu-open')));
+  mobileNav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
   document.addEventListener('keydown', (e) => e.key === 'Escape' && setMenu(false));
+  document.addEventListener('click', (e) => {
+    if (header.classList.contains('menu-open') && !header.contains(e.target)) setMenu(false);
+  });
 
   // Reveal on scroll
   const items = document.querySelectorAll('.reveal');

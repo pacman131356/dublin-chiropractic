@@ -61,17 +61,34 @@
 
   <!-- ============ HEADER ============ -->
   <header class="header" id="top">
-   <div class="header__bar">
-    <div class="container header__inner">
-      <a href="#top" class="brand" aria-label="Dublin Family Chiropractic home">
-        <img src="assets/logo-icon.png" alt="" class="brand__icon" width="52" height="51">
-        <span class="brand__text">
-          <span class="brand__name">Dublin Family</span>
-          <span class="brand__script">Chiropractic</span>
-        </span>
-      </a>
-
-      <nav class="nav" id="nav" aria-label="Main">
+    <div class="header__pill">
+      <div class="header__shape-wrap" aria-hidden="true"><div class="header__shape"></div></div>
+      <div class="header__inner">
+        <nav class="header__nav header__nav--left" aria-label="Main">
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="shock-wave-therapy/">Shock Wave</a>
+          <a href="#new-patients">New Patients</a>
+        </nav>
+        <a href="#top" class="brand" aria-label="Dublin Family Chiropractic home">
+          <img src="assets/logo-icon.png" alt="" class="brand__icon" width="52" height="51">
+          <span class="brand__text">
+            <span class="brand__name">Dublin Family</span>
+            <span class="brand__script">Chiropractic</span>
+          </span>
+        </a>
+        <nav class="header__nav header__nav--right" aria-label="More">
+          <a href="#insurance">Insurance</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+          <a href="#contact" class="btn btn--primary btn--sm">Schedule Appointment</a>
+        </nav>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
         <a href="#about">About</a>
         <a href="#services">Services</a>
         <a href="shock-wave-therapy/">Shock Wave</a>
@@ -79,14 +96,8 @@
         <a href="#insurance">Insurance</a>
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
-        <a href="#contact" class="btn btn--primary nav__cta">Schedule Your Appointment</a>
-      </nav>
-
-      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-   </div>
+        <a href="#contact" class="btn btn--primary">Schedule Appointment</a>
+    </nav>
   </header>
 
   <main>

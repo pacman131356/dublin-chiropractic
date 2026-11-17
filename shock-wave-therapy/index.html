@@ -40,16 +40,34 @@
   </div>
 
   <header class="header" id="top">
-   <div class="header__bar">
-    <div class="container header__inner">
-      <a href="../" class="brand" aria-label="Dublin Family Chiropractic home">
-        <img src="../assets/logo-icon.png" alt="" class="brand__icon" width="52" height="51">
-        <span class="brand__text">
-          <span class="brand__name">Dublin Family</span>
-          <span class="brand__script">Chiropractic</span>
-        </span>
-      </a>
-      <nav class="nav" id="nav" aria-label="Main">
+    <div class="header__pill">
+      <div class="header__shape-wrap" aria-hidden="true"><div class="header__shape"></div></div>
+      <div class="header__inner">
+        <nav class="header__nav header__nav--left" aria-label="Main">
+          <a href="../#about">About</a>
+          <a href="../#services">Services</a>
+          <a href="./" aria-current="page">Shock Wave</a>
+          <a href="../#new-patients">New Patients</a>
+        </nav>
+        <a href="../" class="brand" aria-label="Dublin Family Chiropractic home">
+          <img src="../assets/logo-icon.png" alt="" class="brand__icon" width="52" height="51">
+          <span class="brand__text">
+            <span class="brand__name">Dublin Family</span>
+            <span class="brand__script">Chiropractic</span>
+          </span>
+        </a>
+        <nav class="header__nav header__nav--right" aria-label="More">
+          <a href="../#insurance">Insurance</a>
+          <a href="../#faq">FAQ</a>
+          <a href="../#contact">Contact</a>
+          <a href="tel:6147644001" class="btn btn--primary btn--sm">Call to Schedule</a>
+        </nav>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
         <a href="../#about">About</a>
         <a href="../#services">Services</a>
         <a href="./" aria-current="page">Shock Wave</a>
@@ -57,13 +75,8 @@
         <a href="../#insurance">Insurance</a>
         <a href="../#faq">FAQ</a>
         <a href="../#contact">Contact</a>
-        <a href="tel:6147644001" class="btn btn--primary nav__cta">Call to Schedule</a>
-      </nav>
-      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-   </div>
+        <a href="tel:6147644001" class="btn btn--primary">Call to Schedule</a>
+    </nav>
   </header>
 
   <main>
