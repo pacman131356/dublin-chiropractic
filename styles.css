@@ -423,3 +423,17 @@ p { margin: 0 0 1em; }
 .hero .float-card { z-index: 3; top: auto; bottom: 22%; left: auto; right: -2rem; }
 @media (max-width: 980px) { .hero .float-card { right: 1rem; bottom: 18%; } }
 @media (max-width: 640px) { .hero .float-card { display: none; } }
+
+/* StoryBrand: problem section */
+.section--problem { padding-bottom: 0; }
+.problem { display: grid; grid-template-columns: 1.1fr .9fr; gap: 4rem; align-items: center; }
+.problem .lead { color: var(--ink); }
+.pain-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .7rem; }
+.pain-list li {
+  display: flex; align-items: center; gap: .9rem; background: #fff; border: 1px solid var(--line);
+  border-radius: 14px; padding: .95rem 1.2rem; font-weight: 700; box-shadow: 0 6px 18px -14px rgba(8,73,67,.35);
+}
+.pain-list span { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border-radius: 10px; background: #fdf2ef; }
+.plan .steps { margin-bottom: 2rem; }
+@media (max-width: 980px) { .problem { grid-template-columns: 1fr; gap: 2rem; } }
+.hero h1 { font-size: clamp(2.7rem, 5.6vw, 4.5rem); line-height: 1.05; }
