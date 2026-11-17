@@ -405,3 +405,21 @@ p { margin: 0 0 1em; }
 .benefit--cta a { text-decoration: underline; }
 .hero .photo-frame__img { background: #fff; object-position: center top; }
 .photo-frame__img--contain { object-fit: contain; background: #dfe7e5; }
+
+/* Dr. Jamie portrait (background removed) */
+.photo-frame--portrait { overflow: hidden; }
+.photo-frame--portrait .photo-frame__mark { position: absolute; top: 8%; right: -12%; width: 70%; opacity: .1; }
+.photo-frame__portrait { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 108%; max-width: none; height: auto; z-index: 1; }
+.photo-frame--portrait .photo-frame__label { z-index: 2; }
+.doctor__head { display: flex; align-items: center; gap: 1.2rem; margin-bottom: .6rem; }
+.doctor__head h2 { margin-bottom: 0; }
+.doctor__head .eyebrow { margin-bottom: .4rem; }
+.doctor__avatar {
+  width: 96px; height: 96px; flex: none; border-radius: 50%; object-fit: cover; object-position: center 12%;
+  background: linear-gradient(155deg, var(--teal) 0%, var(--teal-800) 100%);
+  border: 4px solid #fff; box-shadow: 0 0 0 2px var(--teal-100), var(--shadow);
+}
+@media (max-width: 640px) { .doctor__avatar { width: 72px; height: 72px; } }
+.hero .float-card { z-index: 3; top: auto; bottom: 22%; left: auto; right: -2rem; }
+@media (max-width: 980px) { .hero .float-card { right: 1rem; bottom: 18%; } }
+@media (max-width: 640px) { .hero .float-card { display: none; } }
